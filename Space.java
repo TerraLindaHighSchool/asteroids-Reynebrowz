@@ -52,6 +52,7 @@ public class Space extends World
      */
     private void paintStars(int count)
     {   
+        GreenfootImage background = getBackground();
         for(int i = 0; i < count; i++)
         {   
             // gives random coordinates of the stars
@@ -62,15 +63,15 @@ public class Space extends World
             int starSize = (Greenfoot.getRandomNumber(2)+2);
             
             // creates random colors of the stars
-            int red = Greenfoot.getRandomNumber(255);
-            int green = Greenfoot.getRandomNumber(200);
-            int blue = Greenfoot.getRandomNumber(255);
-            int alpha = Greenfoot.getRandomNumber(200);
+            int red = (255 - Greenfoot.getRandomNumber(125));
+            int green = (255 -Greenfoot.getRandomNumber(125));
+            int blue = (255 - Greenfoot.getRandomNumber(125));
+            int alpha = Greenfoot.getRandomNumber(255);
+            int whiteBrightness = Greenfoot.getRandomNumber(256);
             
-            GreenfootImage background = getBackground();
-            background.setColor(new Color(red,green,blue,alpha));            
+            background.setColor(new Color(red,green,blue,255));            
             background.fillOval(x, y, 3, 3);
-            background.setColor(new Color(255,255,255,255));
+            background.setColor(new Color(255,255,255,alpha));
             background.fillOval(x, y, starSize, starSize);
         }
     }
