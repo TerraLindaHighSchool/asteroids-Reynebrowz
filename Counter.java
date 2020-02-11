@@ -39,7 +39,7 @@ public class Counter extends Actor
      * Animate the display to count up (or down) to the current target value.
      */
     public void act() 
-    {
+    {   
         if (value < target) {
             value++;
             updateImage();

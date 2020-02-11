@@ -25,6 +25,7 @@ public class Space extends World
         addObject(rocket, getWidth()/2 + 100, getHeight()/2);
         
         addAsteroids(startAsteroids);
+        paintStars(250);
         
         scoreCounter = new Counter("Score: ");
         addObject(scoreCounter, 60, 480);
@@ -44,6 +45,33 @@ public class Space extends World
             int x = Greenfoot.getRandomNumber(getWidth()/2);
             int y = Greenfoot.getRandomNumber(getHeight()/2);
             addObject(new Asteroid(), x, y);
+        }
+    }
+    /**
+     *  Creates stars in the world. Only for cosmetics and just only adds to the background.
+     */
+    private void paintStars(int count)
+    {   
+        for(int i = 0; i < count; i++)
+        {   
+            // gives random coordinates of the stars
+            int x = Greenfoot.getRandomNumber(getWidth());
+            int y = Greenfoot.getRandomNumber(getHeight());
+            
+            // gives a random size of the stars
+            int starSize = (Greenfoot.getRandomNumber(2)+2);
+            
+            // creates random colors of the stars
+            int red = Greenfoot.getRandomNumber(255);
+            int green = Greenfoot.getRandomNumber(200);
+            int blue = Greenfoot.getRandomNumber(255);
+            int alpha = Greenfoot.getRandomNumber(200);
+            
+            GreenfootImage background = getBackground();
+            background.setColor(new Color(red,green,blue,alpha));            
+            background.fillOval(x, y, 3, 3);
+            background.setColor(new Color(255,255,255,255));
+            background.fillOval(x, y, starSize, starSize);
         }
     }
     
