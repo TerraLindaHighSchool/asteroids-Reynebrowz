@@ -12,7 +12,7 @@ import greenfoot.*;
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-
+    
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
@@ -34,19 +34,42 @@ public class Rocket extends SmoothMover
     {
         checkKeys();
         reloadDelayCount++;
+        move();
     }
     
     /**
      * Check whether there are any key pressed and react to them.
      */
     private void checkKeys() 
-    {
+    {   
+        ignite(Greenfoot.isKeyDown("up"));
         if (Greenfoot.isKeyDown("space")) 
         {
             fire();
         }
+        if (Greenfoot.isKeyDown("left"))
+        {
+            turn(-5);
+        }
+        if (Greenfoot.isKeyDown("right"))
+        {
+            turn(5);
+        }
+
     }
     
+    private void ignite(boolean boosterOn)
+    {
+        if(boosterOn)
+        {
+            setImage(rocketWithThrust);
+            addToVelocity(new Vector(getRotation(),0.3));
+        }
+        else
+        {
+            setImage(rocket);
+        }
+    }
     /**
      * Fire a bullet if the gun is ready.
      */
