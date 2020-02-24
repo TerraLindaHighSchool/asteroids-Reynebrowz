@@ -58,6 +58,16 @@ public class Rocket extends SmoothMover
 
     }
     
+        private void checkCollision()
+    {   
+        if(isTouching(Asteroid.class))
+        {
+            World world = getWorld();
+            world.addObject(new Explosion(),getX(),getY());
+            world.removeObject(this);
+        }
+    }
+    
     private void ignite(boolean boosterOn)
     {
         if(boosterOn)
