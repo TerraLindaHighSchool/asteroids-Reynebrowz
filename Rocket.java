@@ -12,8 +12,10 @@ import greenfoot.*;
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
+    private static final int protonWaveReloadTime = 200;
     
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
+    private int protonWaveDelayCount;
     
     private GreenfootImage rocket = new GreenfootImage("rocket.png");    
     private GreenfootImage rocketWithThrust = new GreenfootImage("rocketWithThrust.png");
@@ -24,6 +26,7 @@ public class Rocket extends SmoothMover
     public Rocket()
     {
         reloadDelayCount = 5;
+        protonWaveDelayCount = 100;
     }
 
     /**
@@ -34,7 +37,9 @@ public class Rocket extends SmoothMover
     {
         checkKeys();
         reloadDelayCount++;
+        protonWaveDelayCount++;
         move();
+        checkCollision();
     }
     
     /**
@@ -43,6 +48,11 @@ public class Rocket extends SmoothMover
     private void checkKeys() 
     {   
         ignite(Greenfoot.isKeyDown("up"));
+        
+        if(Greenfoot.isKeyDown("z"))
+        {
+            startProtonWave();
+        }
         if (Greenfoot.isKeyDown("space")) 
         {
             fire();
@@ -55,16 +65,27 @@ public class Rocket extends SmoothMover
         {
             turn(5);
         }
-
+        
     }
     
-        private void checkCollision()
-    {   
-        if(isTouching(Asteroid.class))
+    private void startProtonWave()
+    {
+        if (protonWaveDelayCount >= protonWaveReloadTime) 
         {
-            World world = getWorld();
-            world.addObject(new Explosion(),getX(),getY());
-            world.removeObject(this);
+            ProtonWave protonwave = new ProtonWave();
+            getWorld().addObject (protonwave, getX(), getY());
+            protonWaveDelayCount = 0;
+        }
+    }
+    
+    private void checkCollision()
+    {   
+        if(getOneIntersectingObject(Asteroid.class) != null)
+        {
+            Space space = (Space) getWorld();
+            space.addObject(new Explosion(),getX(),getY());
+            space.removeObject(this);
+            space.gameOver();
         }
     }
     
