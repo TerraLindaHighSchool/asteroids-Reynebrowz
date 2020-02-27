@@ -10,6 +10,7 @@ public class ProtonWave extends Actor
 {
     /** The damage this wave will deal */
     private static final int DAMAGE = 32;
+    private static final int pointsToAdd = 16;
     
     /** How many images should be used in the animation of the wave */
     private static final int NUMBER_IMAGES= 30;
@@ -83,6 +84,7 @@ public class ProtonWave extends Actor
         for(Asteroid asteroid : asteroids)
         {
             asteroid.hit(DAMAGE);
+            ((Space) getWorld()).updateScore(pointsToAdd);
         }
     }
 }
