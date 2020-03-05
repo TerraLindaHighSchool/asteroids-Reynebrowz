@@ -12,7 +12,7 @@ import greenfoot.*;
 public class Rocket extends SmoothMover
 {
     private static final int gunReloadTime = 5;         // The minimum delay between firing the gun.
-    private static final int protonWaveReloadTime = 100;
+    private static final int protonWaveReloadTime = 200;
     
     private int reloadDelayCount;               // How long ago we fired the gun the last time.
     private int protonWaveDelayCount;
